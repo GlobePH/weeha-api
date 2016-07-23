@@ -18,4 +18,5 @@ Rails.application.routes.draw do
       get 'last'
     end
   end
+  resources :users, only: :index
 end

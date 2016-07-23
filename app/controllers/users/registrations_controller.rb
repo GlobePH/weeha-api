@@ -6,7 +6,7 @@ class Users::RegistrationsController < ApplicationController
     if user.save
       render json: user, status: 200
     else
-      render json: { errors: user.errors.full_message }, status: 422
+      render json: { errors: user.errors.full_messages.to_sentence }, status: 422
     end
   end
 
@@ -17,7 +17,7 @@ class Users::RegistrationsController < ApplicationController
     if confirmed
       render json: user, status: 200
     else
-      render json: { errors: user.errors.full_message }, status: 422
+      render json: { errors: user.errors.full_messages.to_sentence }, status: 422
     end
   end
 

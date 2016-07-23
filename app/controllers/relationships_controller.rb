@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
     if follow.persisted?
       render json: follow, status: 200
     else
-      render json: { errors: follow.errors.full_message }, status: 422
+      render json: { errors: follow.errors.full_messages.to_sentence }, status: 422
     end
   end
 
@@ -17,7 +17,7 @@ class RelationshipsController < ApplicationController
     if relationship.update(status: 'approved')
       render json: relationship, status: 200
     else
-      render json: { errors: relationship.errors.full_message }, status: 422
+      render json: { errors: relationship.errors.full_messages.to_sentence }, status: 422
     end
   end
 

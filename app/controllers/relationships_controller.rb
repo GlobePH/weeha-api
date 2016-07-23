@@ -40,4 +40,16 @@ class RelationshipsController < ApplicationController
     render json: relationships, include: 'follower', status: 200
   end
 
+  def following
+    following = current_user.active_relationships.where(status: 'approved')
+
+    render json: following, include: 'following', status: 200
+  end
+
+  def follower
+    follower = current_user.passive_relationships.where(status: 'approved')
+
+    render json: follower, include: 'follower', status: 200
+  end
+
 end

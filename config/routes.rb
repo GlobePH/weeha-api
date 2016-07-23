@@ -11,4 +11,7 @@ Rails.application.routes.draw do
       get 'approved_requests'
     end
   end
+
+  get 'following', to: 'relationships#following'
+  get 'follower', to: 'relationships#follower'
 end

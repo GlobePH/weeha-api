@@ -11,9 +11,10 @@ class Users::RegistrationsController < ApplicationController
   end
 
   def confirm
-    user = User.find_by(username: params[:username]).confirm(params[:users][:confirmation_code])
+    user = User.find_by(username: params[:username])
+    confirmed = user.confirm(params[:users][:confirmation_code])
 
-    if user
+    if confirmed
       render json: user, status: 200
     else
       render json: { errors: user.errors.full_message }, status: 422

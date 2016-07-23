@@ -5,5 +5,10 @@ Rails.application.routes.draw do
     member do
       put 'approve'
     end
+
+    collection do
+      get 'pending_requests'
+      get 'approved_requests'
+    end
   end
 end

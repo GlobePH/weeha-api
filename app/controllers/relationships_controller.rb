@@ -28,4 +28,16 @@ class RelationshipsController < ApplicationController
     render json: { message: 'Successfully deleted' }, code: 422
   end
 
+  def pending_requests
+    relationships = current_user.pending_requests
+
+    render json: relationships, include: 'follower', status: 200
+  end
+
+  def approved_requests
+    relationships = current_user.approved_requests
+
+    render json: relationships, include: 'follower', status: 200
+  end
+
 end

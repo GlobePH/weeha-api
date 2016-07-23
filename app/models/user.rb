@@ -1,6 +1,15 @@
 class User < ApplicationRecord
   after_create :authenticate
 
+  has_many :active_relationships, class_name:  "Relationship",
+    foreign_key: "follower_id",
+    dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+    foreign_key: "followed_id",
+    dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   validates :first_name, :last_name, presence: true
   validates :mobile_number, :username, presence: true, uniqueness: true
 
@@ -15,6 +24,18 @@ class User < ApplicationRecord
     access_token = auth.getAccessToken([code])
 
     update!(access_token: access_token.split('"').fourth, verified: true)
+  end
+
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  def pending_requests
+    passive_relationships.where(status: 'pending')
+  end
+
+  def approved_requests
+    passive_relationships.where(status: 'approved')
   end
 
 private

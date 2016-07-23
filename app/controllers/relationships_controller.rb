@@ -43,7 +43,7 @@ class RelationshipsController < ApplicationController
   def following
     following = current_user.active_relationships.where(status: 'approved')
 
-    render json: following, include: 'following', status: 200
+    render json: following, include: { followed: { include: 'locations' } }, status: 200
   end
 
   def follower

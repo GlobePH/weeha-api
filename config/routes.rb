@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       get 'approved_requests'
     end
   end
-
   get 'following', to: 'relationships#following'
   get 'follower', to: 'relationships#follower'
+  resources :locations, only: [:index, :create] do
+    collection do
+      get 'last'
+    end
+  end
 end
